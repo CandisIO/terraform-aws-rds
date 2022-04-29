@@ -110,6 +110,13 @@ resource "aws_db_instance" "this" {
     delete = lookup(var.timeouts, "delete", null)
     update = lookup(var.timeouts, "update", null)
   }
+
+  lifecycle {
+    ignore_changes = [
+      # Ignore changes to properties after creation
+      replicate_source_db,
+    ]
+  }
 }
 
 resource "aws_db_instance" "this_mssql" {
